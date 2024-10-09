@@ -10,8 +10,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background-color: #fffde7;
     color: #333;
-    margin: 0;
-    padding: 0;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -23,15 +21,23 @@ header {
     padding: 20px;
     background-color: #333;
     color: white;
-    position: relative;
 }
 
-header h1 {
-    font-size: 2.5em;
-    letter-spacing: 2px;
+/* Logomarca Centralizada na Página Principal */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
 }
 
-/* Logomarca no canto superior direito */
+.main-logo {
+    max-width: 80%; /* Ajusta a largura máxima para 80% da largura da tela */
+    height: auto;
+    max-height: 300px; /* Limita a altura máxima para evitar que ocupe muito espaço vertical */
+}
+
+/* Logomarca no canto superior direito das outras páginas */
 .header-logo {
     position: absolute;
     top: 10px;
@@ -63,19 +69,6 @@ header h1 {
 
 .btn-main:hover {
     background-color: #ff6f00;
-}
-
-/* Estilo para a Tag <p> */
-.content {
-    padding: 20px;
-    text-align: center;
-}
-
-.content p {
-    font-size: 1.2em;
-    line-height: 1.5;
-    color: #333;
-    margin-bottom: 20px;
 }
 
 /* Footer */
