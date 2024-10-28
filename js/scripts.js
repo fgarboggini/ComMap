@@ -1,46 +1,68 @@
-// Função para alternar entre as seções de pesquisa e adicionar podcast
+// Função para alternar entre seções de pesquisa e adicionar artigo
 function toggleSection(section) {
     const searchSection = document.getElementById('searchSection');
     const addSection = document.getElementById('addSection');
+    const articleListSection = document.getElementById('articleListSection');
 
     if (section === 'search') {
         searchSection.classList.remove('hidden');
         addSection.classList.add('hidden');
+        articleListSection.classList.add('hidden');
     } else if (section === 'add') {
         addSection.classList.remove('hidden');
         searchSection.classList.add('hidden');
+        articleListSection.classList.add('hidden');
     }
 }
 
-// Função para buscar podcasts com base no campo selecionado
+// Função para adicionar artigo ao armazenamento local
+// Exemplo de verificação após o armazenamento
+document.getElementById("addArticleForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+    const article = { /* todos os campos aqui */ };
+    
+    let storedArticles = JSON.parse(localStorage.getItem("articles")) || [];
+    storedArticles.push(article);
+    localStorage.setItem("articles", JSON.stringify(storedArticles));
+    document.getElementById("addArticleForm").reset();
+    alert("Artigo adicionado com sucesso!");
+
+    // Verifique no console após armazenar
+    console.log("Armazenamento:", localStorage.getItem("articles"));
+});
+
+// Adicionar consistência na tabela em todas as funções de busca
 function searchByField(field) {
-    const resultsList = document.getElementById("resultsList");
-    resultsList.innerHTML = ""; // Limpa os resultados anteriores
+    const resultsList = document.getElementById("articleResultsList");
+    resultsList.innerHTML = "";
 
-    const storedPodcasts = JSON.parse(localStorage.getItem("podcasts")) || [];
-    
-    // Filtrar podcasts que possuem o campo preenchido
-    const filteredPodcasts = storedPodcasts.filter(podcast => podcast[field] && podcast[field].trim() !== "");
-    
-    // Exibir de forma diferenciada se o campo pesquisado for "Título"
-    if (field === 'title') {
-        filteredPodcasts.forEach(podcast => {
-            const listItem = document.createElement("li");
-            listItem.textContent = podcast.title;
+    const storedArticles = JSON.parse(localStorage.getItem("articles")) || [];
+    const filteredArticles = storedArticles.filter(article => article[field] && article[field].trim() !== "");
 
-            // Adicionar botão para abrir o link do podcast
-            if (podcast.link) {
-                const linkButton = document.createElement("button");
-                linkButton.textContent = "Ir para o Podcast";
-                linkButton.classList.add("link-button");
-                linkButton.onclick = () => window.open(podcast.link, "_blank");
-                listItem.appendChild(linkButton);
-            }
+    if (filteredArticles.length > 0) {
+        const table = document.createElement("table");
+        table.classList.add("table"); // Adicionar classe CSS específica para estilizar
 
-            resultsList.appendChild(listItem);
-        });
-    } else if (filteredPodcasts.length > 0) {
-        // Criar uma tabela para exibir os resultados com três colunas para outros campos
+        // Adicionar conteúdo da tabela
+        /* ... código para preencher as colunas ... */
+
+        resultsList.appendChild(table);
+    } else {
+        const noResultsItem = document.createElement("p");
+        noResultsItem.textContent = "Nenhum resultado encontrado para esse campo.";
+        resultsList.appendChild(noResultsItem);
+    }
+}
+
+// Função para buscar artigos e exibir resultados em três colunas
+function searchByField(field) {
+    const resultsList = document.getElementById("articleResultsList");
+    resultsList.innerHTML = "";
+
+    const storedArticles = JSON.parse(localStorage.getItem("articles")) || [];
+    const filteredArticles = storedArticles.filter(article => article[field] && article[field].trim() !== "");
+
+    if (filteredArticles.length > 0) {
         const table = document.createElement("table");
         const tableHeader = `
             <tr>
@@ -50,26 +72,26 @@ function searchByField(field) {
             </tr>`;
         table.innerHTML = tableHeader;
 
-        filteredPodcasts.forEach(podcast => {
+        filteredArticles.forEach(article => {
             const row = document.createElement("tr");
 
-            // Coluna do Título
+            // Coluna do Título (para agora, uso a natureza da intervenção como título de exemplo)
             const titleCell = document.createElement("td");
-            titleCell.textContent = podcast.title;
+            titleCell.textContent = article.natureza || "Sem Título"; // Ajuste de acordo com campo que contém o título
             row.appendChild(titleCell);
 
             // Coluna do campo pesquisado
             const fieldCell = document.createElement("td");
-            fieldCell.textContent = podcast[field];
+            fieldCell.textContent = article[field];
             row.appendChild(fieldCell);
 
             // Coluna do botão de link
             const actionCell = document.createElement("td");
-            if (podcast.link) {
+            if (article.materialDidatico) {
                 const linkButton = document.createElement("button");
-                linkButton.textContent = "Ir para o Podcast";
+                linkButton.textContent = "Ir para o Artigo";
                 linkButton.classList.add("link-button");
-                linkButton.onclick = () => window.open(podcast.link, "_blank");
+                linkButton.onclick = () => window.open(article.materialDidatico, "_blank");
                 actionCell.appendChild(linkButton);
             } else {
                 actionCell.textContent = "Link indisponível";
@@ -90,55 +112,44 @@ function searchByField(field) {
 // Função auxiliar para obter o nome de exibição do campo
 function getFieldDisplayName(field) {
     const fieldNames = {
-        title: "Título",
-        originalSummary: "Resumo Original",
-        portugueseSummary: "Resumo em Português",
-        duration: "Duração",
-        otherLinks: "Outros Links",
-        audience: "Público Alvo",
-        language: "Idioma",
-        community: "Comunidade Urbana/Favela",
-        location: "Local/País",
-        name: "Nome do Responsável",
-        platform: "Plataforma"
+        favela: "Favela",
+        baseComunitaria: "Base Comunitária",
+        natureza: "Natureza da Intervenção",
+        projetoEnvolvido: "Projeto Envolvido",
+        openstreetmap: "OpenStreetMap",
+        localIntervencao: "Local da Intervenção",
+        feicoesMapeadas: "Feições Mapeadas",
+        tecnologiasCartograficas: "Tecnologias Cartográficas",
+        mapasDigitaisAnalógicos: "Mapas Digitais/Analógicos",
+        metodosApropriacao: "Métodos de Apropriação",
+        materialDidatico: "Material Didático",
+        avaliacaoFerramentas: "Avaliação das Ferramentas",
+        impactoComunitario: "Impacto Comunitário",
+        impactosEfetivos: "Impactos Efetivos",
+        desafiosProblemas: "Desafios e Problemas"
     };
     return fieldNames[field] || field;
 }
 
-// Inicialização das seções ao carregar a página
-document.addEventListener("DOMContentLoaded", function() {
-    const searchSection = document.getElementById('searchSection');
-    const addSection = document.getElementById('addSection');
+// Função para exibir todos os artigos armazenados
+function displayStoredArticles() {
+    const articleList = document.getElementById("articleList");
+    articleList.innerHTML = "";
 
-    if (searchSection && addSection) {
-        searchSection.classList.add('hidden');
-        addSection.classList.add('hidden');
-    }
+    const storedArticles = JSON.parse(localStorage.getItem("articles")) || [];
 
-    // Event listener para o formulário de adicionar podcast
-    const addPodcastForm = document.getElementById("addPodcastForm");
-    if (addPodcastForm) {
-        addPodcastForm.addEventListener("submit", function(event) {
-            event.preventDefault();
-            const podcast = {
-                title: document.getElementById("title").value.trim(),
-                originalSummary: document.getElementById("originalSummary").value.trim(),
-                portugueseSummary: document.getElementById("portugueseSummary").value.trim(),
-                link: document.getElementById("link").value.trim(),
-                duration: document.getElementById("duration").value.trim(),
-                otherLinks: document.getElementById("otherLinks").value.trim(),
-                audience: document.getElementById("audience").value.trim(),
-                language: document.getElementById("language").value.trim(),
-                community: document.getElementById("community").value.trim(),
-                location: document.getElementById("location").value.trim(),
-                name: document.getElementById("name").value.trim(),
-                platform: document.getElementById("platform").value.trim()
-            };
-            let storedPodcasts = JSON.parse(localStorage.getItem("podcasts")) || [];
-            storedPodcasts.push(podcast);
-            localStorage.setItem("podcasts", JSON.stringify(storedPodcasts));
-            addPodcastForm.reset();
-            alert("Podcast adicionado com sucesso!");
+    if (storedArticles.length > 0) {
+        storedArticles.forEach(article => {
+            const listItem = document.createElement("li");
+            listItem.textContent = `Favela: ${article.favela}, Base Comunitária: ${article.baseComunitaria}`;
+            articleList.appendChild(listItem);
         });
+    } else {
+        const noArticlesItem = document.createElement("p");
+        noArticlesItem.textContent = "Nenhum artigo armazenado.";
+        articleList.appendChild(noArticlesItem);
     }
-});
+}
+
+// Exibir lista de artigos ao carregar a página
+document.addEventListener("DOMContentLoaded", displayStoredArticles);
