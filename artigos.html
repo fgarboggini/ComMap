@@ -5,102 +5,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fábio Garboggini">
     <title>Artigos - Ferramenta de Busca</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/articles.css">
 </head>
 <body>
     <header>
         <h1>Artigos</h1>
-        <img src="Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
+        <img src="assets/Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
     </header>
 
     <main>
         <section class="buttons">
+            <button class="btn-main" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
             <button class="btn-main" onclick="toggleSection('search')">Pesquisar Artigo</button>
             <button class="btn-main" onclick="toggleSection('add')">Adicionar Artigo</button>
-            <!-- Botão para retornar à página principal -->
-            <button class="btn-main" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
         </section>
 
-        <!-- Seção de Pesquisa com Botões para Cada Campo -->
         <section id="searchSection" class="hidden">
-            <h2>Pesquisar Artigo por Campo</h2>
-            <div class="search-buttons">
-                <button onclick="searchByField('favela')">Trabalha com Favela?</button>
-                <button onclick="searchByField('baseComunitaria')">Tem intervenção de base comunitária?</button>
-                <button onclick="searchByField('natureza')">Natureza da intervenção/temática?</button>
-                <button onclick="searchByField('projetoEnvolvido')">Há um projeto envolvido?</button>
-                <button onclick="searchByField('openstreetmap')">Moradores operaram o openstreetmap?</button>
-                <button onclick="searchByField('localIntervencao')">Onde é a favela/intervenção?</button>
-                <button onclick="searchByField('feicoesMapeadas')">Quais feições foram mapeadas?</button>
-                <button onclick="searchByField('tecnologiasCartograficas')">Usam tecnologias cartográficas?</button>
-                <button onclick="searchByField('mapasDigitaisAnalógicos')">Usa mapas digitais/analógicos?</button>
-                <button onclick="searchByField('metodosApropriacao')">Métodos de apropriação de dados?</button>
-                <button onclick="searchByField('materialDidatico')">Disponibilizou material didático?</button>
-                <button onclick="searchByField('avaliacaoFerramentas')">Método de avaliação de ferramentas?</button>
-                <button onclick="searchByField('impactoComunitario')">Indicadores de impacto comunitário?</button>
-                <button onclick="searchByField('impactosEfetivos')">Relata impactos efetivos?</button>
-                <button onclick="searchByField('desafiosProblemas')">Desafios e problemas?</button>
-            </div>
-            <ul id="articleResultsList"></ul>
+            <input type="text" id="searchInput" placeholder="Digite o critério de pesquisa" />
+            <button onclick="searchArticles()">Pesquisar</button>
+            <table id="resultsTable">
+                <thead id="resultsHeader"></thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
         </section>
 
-        <!-- Seção de Adicionar Artigo com Todos os Campos -->
         <section id="addSection" class="hidden">
-            <h2>Adicionar Novo Artigo</h2>
             <form id="addArticleForm">
-                <label for="favela">Trabalha com Favela?</label>
-                <input type="text" id="favela" class="input-field">
-                
-                <label for="baseComunitaria">Tem intervenção de base comunitária?</label>
-                <input type="text" id="baseComunitaria" class="input-field">
-
-                <label for="natureza">Natureza da intervenção/temática</label>
-                <input type="text" id="natureza" class="input-field">
-
-                <label for="projetoEnvolvido">Há um projeto envolvido?</label>
-                <input type="text" id="projetoEnvolvido" class="input-field">
-
-                <label for="openstreetmap">Moradores operaram o openstreetmap?</label>
-                <input type="text" id="openstreetmap" class="input-field">
-
-                <label for="localIntervencao">Onde é a favela/intervenção?</label>
-                <input type="text" id="localIntervencao" class="input-field">
-
-                <label for="feicoesMapeadas">Quais feições foram mapeadas?</label>
-                <input type="text" id="feicoesMapeadas" class="input-field">
-
-                <label for="tecnologiasCartograficas">Usam tecnologias cartográficas?</label>
-                <input type="text" id="tecnologiasCartograficas" class="input-field">
-
-                <label for="mapasDigitaisAnalógicos">Usa mapas digitais/analógicos?</label>
-                <input type="text" id="mapasDigitaisAnalógicos" class="input-field">
-
-                <label for="metodosApropriacao">Métodos de apropriação de dados</label>
-                <input type="text" id="metodosApropriacao" class="input-field">
-
-                <label for="materialDidatico">Disponibilizou material didático?</label>
-                <input type="text" id="materialDidatico" class="input-field">
-
-                <label for="avaliacaoFerramentas">Método de avaliação de ferramentas</label>
-                <textarea id="avaliacaoFerramentas" class="input-field" rows="3"></textarea>
-
-                <label for="impactoComunitario">Indicadores de impacto comunitário</label>
-                <textarea id="impactoComunitario" class="input-field" rows="3"></textarea>
-
-                <label for="impactosEfetivos">Relata impactos efetivos?</label>
-                <textarea id="impactosEfetivos" class="input-field" rows="3"></textarea>
-
-                <label for="desafiosProblemas">Desafios e problemas identificados</label>
-                <textarea id="desafiosProblemas" class="input-field" rows="3"></textarea>
-
+                <label for="title">Título:</label>
+                <input type="text" id="title" class="input-field">
+                <!-- Outros campos para adicionar artigo -->
                 <button type="submit" class="btn-main">Cadastrar</button>
             </form>
-        </section>
-
-        <!-- Listagem de Artigos -->
-        <section id="articleListSection">
-            <h2>Lista de Artigos</h2>
-            <ul id="articleList"></ul>
         </section>
     </main>
 
@@ -111,6 +46,3 @@
     <script src="js/articles.js"></script>
 </body>
 </html>
-
-
-

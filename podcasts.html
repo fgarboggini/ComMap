@@ -5,87 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fábio Garboggini">
     <title>Podcasts - Ferramenta de Busca</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/podcasts.css">
 </head>
 <body>
     <header>
         <h1>Podcasts</h1>
-        <!-- Logomarca no canto superior direito -->
-        <img src="Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
+        <img src="assets/Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
     </header>
 
     <main>
-        <!-- Botão de Voltar para a Página Principal -->
         <section class="buttons">
             <button class="btn-main" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
-        </section>
-
-        <!-- Botões para ações -->
-        <section class="buttons">
             <button class="btn-main" onclick="toggleSection('search')">Pesquisar Podcast</button>
             <button class="btn-main" onclick="toggleSection('add')">Adicionar Podcast</button>
         </section>
-        
 
-        <!-- Seção de Pesquisa -->
         <section id="searchSection" class="hidden">
-            <h2>Pesquisar Podcast</h2>
-            <div class="search-buttons">
-                <button onclick="searchByField('title')">Título</button>
-                <button onclick="searchByField('originalSummary')">Resumo Original</button>
-                <button onclick="searchByField('portugueseSummary')">Resumo em Português</button>
-                <button onclick="searchByField('duration')">Duração</button>
-                <button onclick="searchByField('otherLinks')">Outros Links</button>
-                <button onclick="searchByField('audience')">Público Alvo</button>
-                <button onclick="searchByField('language')">Idioma</button>
-                <button onclick="searchByField('community')">Comunidade Urbana/Favela</button>
-                <button onclick="searchByField('location')">Local/País</button>
-                <button onclick="searchByField('name')">Nome do Responsável</button>
-                <button onclick="searchByField('platform')">Plataforma</button>
-            </div>
-            <ul id="resultsList"></ul>
+            <input type="text" id="searchInput" placeholder="Digite o critério de pesquisa" />
+            <button onclick="searchPodcasts()">Pesquisar</button>
+            <table id="resultsTable">
+                <thead id="resultsHeader"></thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
         </section>
 
-        <!-- Seção de Adicionar Podcast -->
         <section id="addSection" class="hidden">
-            <h2>Adicionar Novo Podcast</h2>
             <form id="addPodcastForm">
-                <label for="title">Título do episódio:</label>
-                <input type="text" id="title" name="title" class="input-field">
-
-                <label for="originalSummary">Resumo Original:</label>
-                <textarea id="originalSummary" name="originalSummary" rows="3" class="input-field"></textarea>
-
-                <label for="portugueseSummary">Resumo em Português:</label>
-                <textarea id="portugueseSummary" name="portugueseSummary" rows="3" class="input-field"></textarea>
-
-                <label for="link">Link:</label>
-                <input type="url" id="link" name="link" class="input-field">
-
-                <label for="duration">Duração:</label>
-                <input type="text" id="duration" name="duration" class="input-field">
-
-                <label for="otherLinks">Links (YouTube ou outros indicados no podcast):</label>
-                <input type="url" id="otherLinks" name="otherLinks" class="input-field">
-
-                <label for="audience">Público alvo do podcast/canal:</label>
-                <input type="text" id="audience" name="audience" class="input-field">
-
-                <label for="language">Idioma:</label>
-                <input type="text" id="language" name="language" class="input-field">
-
-                <label for="community">Fala de comunidade urbana/favela:</label>
-                <input type="text" id="community" name="community" class="input-field">
-
-                <label for="location">Local/país de produção:</label>
-                <input type="text" id="location" name="location" class="input-field">
-
-                <label for="name">Nome do responsável:</label>
-                <input type="text" id="name" name="name" class="input-field">
-
-                <label for="platform">Plataforma:</label>
-                <textarea id="platform" name="platform" rows="3" class="input-field"></textarea>
-
+                <label for="title">Título:</label>
+                <input type="text" id="title" class="input-field">
+                <!-- Outros campos para adicionar podcast -->
                 <button type="submit" class="btn-main">Cadastrar</button>
             </form>
         </section>
@@ -95,6 +43,6 @@
         <p>© 2024 ComMap. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="js/scripts.js"></script>
+    <script src="js/podcasts.js"></script>
 </body>
 </html>
