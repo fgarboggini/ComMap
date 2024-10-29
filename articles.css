@@ -1,4 +1,11 @@
-/* Estilos para a Página Inicial */
+/* Reset de margens, paddings e box-sizing */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos Globais */
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a8d0e6, #f8b500);
@@ -8,24 +15,21 @@ body {
     flex-direction: column;
 }
 
-header, footer {
+header {
     text-align: center;
-    background-color: #333;
-    color: white;
-    padding: 15px;
+    padding: 20px;
 }
 
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-
-.main-logo {
-    max-width: 80%;
+.header-logo {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    width: 80px;
     height: auto;
-    max-height: 300px;
+}
+
+.hidden {
+    display: none;
 }
 
 .buttons {
@@ -50,4 +54,17 @@ header, footer {
 
 .btn-main:hover {
     background-color: #ff6f00;
+}
+
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    padding: 15px;
+    margin-top: auto;
+    color: #333;
+}
+
+#resultsTable {
+    width: 100%;
+    margin-top: 20px;
 }
