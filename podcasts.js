@@ -1,55 +1,28 @@
-const apiKey = 'AIzaSyAWTU0OV_6hyFmyLVkAv6TGYFU2S37IjcE';
-const podcastsSheetId = '1jd726HH4DepEtfcyD96Ezra_qXK3DsrsP5CjIqu5EUc';
-const range = 'Sheet1!B3:L31';
-
-async function fetchDataFromSheet() {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${podcastsSheetId}/values/${range}?key=${apiKey}`;
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        return data.values || [];
-    } catch (error) {
-        console.error("Erro ao buscar dados da planilha:", error);
-        return [];
-    }
+// Função para alternar a exibição do formulário de adicionar podcast
+function toggleAddForm() {
+    const addFormSection = document.getElementById("addFormSection");
+    addFormSection.classList.toggle("hidden");
 }
 
-async function searchPodcasts() {
-    const query = document.getElementById("searchInput").value.toLowerCase();
-    const data = await fetchDataFromSheet();
+// Função para salvar o novo podcast no Local Storage
+function addPodcast() {
+    const podcast = {
+        title: document.getElementById("title").value.trim(),
+        summary: document.getElementById("summary").value.trim(),
+        link: document.getElementById("link").value.trim(),
+        duration: document.getElementById("duration").value.trim(),
+        otherLinks: document.getElementById("otherLinks").value.trim(),
+        audience: document.getElementById("audience").value.trim(),
+        language: document.getElementById("language").value.trim(),
+        community: document.getElementById("community").value.trim(),
+        location: document.getElementById("location").value.trim()
+    };
 
-    const headers = data[0];
-    const rows = data.slice(1);
+    let storedPodcasts = JSON.parse(localStorage.getItem("podcasts")) || [];
+    storedPodcasts.push(podcast);
+    localStorage.setItem("podcasts", JSON.stringify(storedPodcasts));
 
-    const filteredData = rows.filter(row => row.some(cell => cell && cell.toLowerCase().includes(query)));
-    displayResults(headers, filteredData);
-}
-
-function displayResults(headers, data) {
-    const resultsBody = document.getElementById("resultsBody");
-    resultsBody.innerHTML = "";
-
-    const headerRow = document.createElement("tr");
-    headers.forEach(header => {
-        const headerCell = document.createElement("th");
-        headerCell.textContent = header;
-        headerRow.appendChild(headerCell);
-    });
-    resultsBody.appendChild(headerRow);
-
-    data.forEach(row => {
-        const rowElement = document.createElement("tr");
-        row.forEach(cell => {
-            const cellElement = document.createElement("td");
-            cellElement.textContent = cell || "N/A";
-            rowElement.appendChild(cellElement);
-        });
-        resultsBody.appendChild(rowElement);
-    });
-}
-
-document.getElementById("addPodcastForm")?.addEventListener("submit", function(event) {
-    event.preventDefault();
-    alert("Funcionalidade de adição será integrada em breve!");
     document.getElementById("addPodcastForm").reset();
-});
+    alert("Podcast cadastrado com sucesso!");
+}
+

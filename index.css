@@ -1,11 +1,3 @@
-/* Reset de margens, paddings e box-sizing */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Estilos Globais */
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(to bottom, #a8d0e6, #f8b500);
@@ -20,18 +12,11 @@ header {
     padding: 20px;
 }
 
-/* Logomarca Centralizada na Página Principal */
-.logo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 20px 0;
-}
-
 .main-logo {
-    max-width: 80%;
+    display: block;
+    margin: 20px auto;
+    max-width: 400px; /* Tamanho da logomarca ajustado */
     height: auto;
-    max-height: 300px;
 }
 
 .buttons {

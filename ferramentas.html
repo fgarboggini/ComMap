@@ -5,23 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fábio Garboggini">
     <title>Ferramentas - Ferramenta de Busca</title>
-    <link rel="stylesheet" href="tools.css">
+    <link rel="stylesheet" href="ferramentas.css">
 </head>
 <body>
     <header>
         <h1>Ferramentas</h1>
-        <img src="assets/Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
+        <img src="2_ComMap_logo_Image 1.png" alt="Logomarca Colab Internacional" class="header-logo">
     </header>
 
     <main>
         <section class="buttons">
-            <button class="btn-main" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
+            <button class="btn-main" id="btnVoltarPaginaPrincipal">Voltar para a Página Principal</button>
+            <button class="btn-main" onclick="addTool('Ferramenta Exemplo', 'Descrição da ferramenta')">Adicionar Exemplo de Ferramenta</button>
+        </section>
+
+        <section id="resultsSection">
+            <h2>Ferramentas Salvas Temporariamente</h2>
+            <ul id="resultsList"></ul>
         </section>
     </main>
 
     <footer>
         <p>© 2024 ComMap. Todos os direitos reservados.</p>
     </footer>
+
+    <script src="ferramentas.js"></script>
 </body>
 </html>
 

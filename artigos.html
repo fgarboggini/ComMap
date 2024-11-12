@@ -5,37 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fábio Garboggini">
     <title>Artigos - Ferramenta de Busca</title>
-    <link rel="stylesheet" href="articles.css">
+    <link rel="stylesheet" href="artigos.css">
 </head>
 <body>
     <header>
         <h1>Artigos</h1>
-        <img src="Logobrancaepreta.jpeg" alt="Logomarca Colab Internacional" class="header-logo">
+        <img src="2_ComMap_logo_Image 1.png" alt="Logomarca Colab Internacional" class="header-logo">
     </header>
 
     <main>
         <section class="buttons">
-            <button class="btn-main" onclick="window.location.href='index.html'">Voltar para a Página Principal</button>
-            <button class="btn-main" onclick="toggleSection('search')">Pesquisar Artigo</button>
-            <button class="btn-main" onclick="toggleSection('add')">Adicionar Artigo</button>
+            <button class="btn-main" id="btnVoltarPaginaPrincipal">Voltar para a Página Principal</button>
+            <button class="btn-main" onclick="addArticle('Título Exemplo', 'Favela', 'Descrição do artigo')">Adicionar Exemplo de Artigo</button>
         </section>
 
-        <section id="searchSection" class="hidden">
-            <input type="text" id="searchInput" placeholder="Digite o critério de pesquisa" />
-            <button onclick="searchArticles()">Pesquisar</button>
-            <table id="resultsTable">
-                <thead id="resultsHeader"></thead>
-                <tbody id="resultsBody"></tbody>
-            </table>
-        </section>
-
-        <section id="addSection" class="hidden">
-            <form id="addArticleForm">
-                <label for="title">Título:</label>
-                <input type="text" id="title" class="input-field">
-                <!-- Outros campos para adicionar artigo -->
-                <button type="submit" class="btn-main">Cadastrar</button>
-            </form>
+        <section id="resultsSection">
+            <h2>Artigos Salvos Temporariamente</h2>
+            <ul id="resultsList"></ul>
         </section>
     </main>
 
@@ -43,6 +29,6 @@
         <p>© 2024 ComMap. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="articles.js"></script>
+    <script src="artigos.js"></script>
 </body>
 </html>

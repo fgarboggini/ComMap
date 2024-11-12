@@ -4,23 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Fábio Garboggini">
-    <title>Material Didático - Ferramenta de Busca</title>
-    <link rel="stylesheet" href="material-didatico.css">
+    <title>Sugestões de Pesquisa - TCC, Mestrado, Doutorado</title>
+    <link rel="stylesheet" href="pesquisa.css">
 </head>
 <body>
     <header>
-        <h1>Material Didático</h1>
+        <h1>Sugestões de Pesquisa</h1>
         <img src="2_ComMap_logo_Image 1.png" alt="Logomarca Colab Internacional" class="header-logo">
     </header>
 
     <main>
+        <section class="content">
+            <p>Bem-vindo à seção de Sugestões de Pesquisa. Aqui, você encontrará ideias e direções para TCC, Mestrado e Doutorado, assim como locais onde você poderá desenvolver suas pesquisas.</p>
+        </section>
+
         <section class="buttons">
             <button class="btn-main" id="btnVoltarPaginaPrincipal">Voltar para a Página Principal</button>
-            <button class="btn-main" onclick="addMaterial('Material Exemplo', 'Link para o material')">Adicionar Exemplo de Material</button>
+            <button class="btn-main" onclick="addSuggestion('Sugestão Exemplo', 'Descrição da sugestão')">Adicionar Exemplo de Sugestão</button>
         </section>
 
         <section id="resultsSection">
-            <h2>Materiais Didáticos Salvos Temporariamente</h2>
+            <h2>Sugestões de Pesquisa Salvas Temporariamente</h2>
             <ul id="resultsList"></ul>
         </section>
     </main>
@@ -29,6 +33,9 @@
         <p>© 2024 ComMap. Todos os direitos reservados.</p>
     </footer>
 
-    <script src="material-didatico.js"></script>
+    <script src="pesquisa.js"></script>
 </body>
 </html>
+
+
+
