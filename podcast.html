@@ -8,33 +8,92 @@
     <link rel="stylesheet" href="podcast.css">
 </head>
 <body>
-    <div class="container">
+    <header>
         <h1>Catálogo de Podcasts</h1>
-
-        <h2>Adicionar Novo Podcast</h2>
-        <form id="formulario-podcast">
-            <input type="text" id="titulo" placeholder="Título do Episódio" required>
-            <textarea id="resumo" placeholder="Resumo"></textarea>
-            <input type="text" id="link" placeholder="Link">
-            <input type="text" id="duracao" placeholder="Duração">
-            <input type="text" id="audiencia" placeholder="Público Focal">
-            <input type="text" id="idioma" placeholder="Idioma">
-            <button type="submit">Cadastrar</button>
-        </form>
-        
-        <h2>Buscar Podcast</h2>
-        <form id="formulario-busca">
-            <input type="text" id="termo-busca" placeholder="Buscar por Título, Público Focal ou Idioma">
-            <button type="submit">Buscar</button>
-            <button type="button" id="limpar-busca">Limpar Busca</button> 
-        </form>
-        <div id="resultado-busca"></div> 
-
-        <h2>Listagem de Podcasts</h2>
-        <ul id="lista-podcasts"></ul>
-
-    </div>
+        <img src="2_ComMap_logo_Image 1.png" alt="Logomarca Colab Internacional" class="header-logo">
+    </header>
     
+    <div class="container">
+        <!-- Botões iniciais alinhados horizontalmente -->
+        <div class="initial-buttons">
+            <button onclick="window.location.href='index.html'" class="btn-back">Voltar para a Página Principal</button>
+            <button onclick="toggleSection('addPodcast')" class="btn-main">Adicionar Novo Podcast</button>
+            <button onclick="toggleSection('searchPodcast')" class="btn-main">Buscar Podcast</button>
+            <button onclick="toggleSection('listPodcast')" class="btn-main">Listar Podcasts</button>
+        </div>
+
+        <!-- Seção de Adicionar Podcast (escondida inicialmente) -->
+        <section id="addPodcast" class="hidden">
+            <h2>Adicionar Novo Podcast</h2>
+            <form id="formulario-podcast">
+                <label for="titulo">Título do Episódio:</label>
+                <input type="text" id="titulo" placeholder="Título do Episódio" required>
+
+                <label for="resumo">Resumo:</label>
+                <textarea id="resumo" placeholder="Resumo"></textarea>
+
+                <label for="link">Link:</label>
+                <input type="text" id="link" placeholder="Link">
+
+                <label for="duracao">Duração:</label>
+                <input type="text" id="duracao" placeholder="Duração">
+
+                <label for="otherLinks">Links Indicados no Podcast:</label>
+                <input type="text" id="otherLinks" placeholder="Links Indicados no Podcast">
+
+                <label for="audiencia">Público Focal:</label>
+                <input type="text" id="audiencia" placeholder="Público Focal">
+
+                <label for="idioma">Idioma:</label>
+                <input type="text" id="idioma" placeholder="Idioma">
+
+                <label for="communityName">Nome da Comunidade:</label>
+                <input type="text" id="communityName" placeholder="Nome da Comunidade">
+
+                <label for="guestProjectName">Nome do Projeto do Convidado:</label>
+                <input type="text" id="guestProjectName" placeholder="Nome do Projeto do Convidado">
+
+                <label for="mapsOrGeotech">Trata de Mapas ou Geotech:</label>
+                <input type="text" id="mapsOrGeotech" placeholder="Sim ou Não">
+
+                <label for="community">Fala de Comunidade Urbana/Favela:</label>
+                <input type="text" id="community" placeholder="Comunidade Urbana/Favela">
+
+                <label for="location">Local/País de Produção:</label>
+                <input type="text" id="location" placeholder="Local/País de Produção">
+
+                <label for="name">Nome do Responsável:</label>
+                <input type="text" id="name" placeholder="Nome do Responsável">
+
+                <label for="characteristics">Características:</label>
+                <textarea id="characteristics" placeholder="Características"></textarea>
+
+                <button type="submit">Cadastrar</button>
+            </form>
+        </section>
+        
+        <!-- Seção de Buscar Podcast (escondida inicialmente) -->
+        <section id="searchPodcast" class="hidden">
+            <h2>Buscar Podcast</h2>
+            <div class="search-container">
+                <button class="search-btn" onclick="toggleSearchOptions()">🔍 Buscar</button>
+                <div id="searchOptions" class="hidden">
+                    <button onclick="searchByField('titulo')">Título do Episódio</button>
+                    <button onclick="searchByField('audiencia')">Público Focal</button>
+                    <button onclick="searchByField('idioma')">Idioma</button>
+                    <button onclick="listAll()">Listar Tudo</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Listagem de Podcasts (escondida inicialmente) -->
+        <section id="listPodcast" class="hidden">
+            <h2>Listagem de Podcasts</h2>
+            <ul id="lista-podcasts"></ul>
+        </section>
+    </div>
+
     <script src="podcast.js"></script>
 </body>
 </html>
+
