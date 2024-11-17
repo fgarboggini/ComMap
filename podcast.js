@@ -3,11 +3,13 @@ function toggleSection(section) {
     const addPodcast = document.getElementById('addPodcast');
     const searchPodcast = document.getElementById('searchPodcast');
     const listPodcast = document.getElementById('listPodcast');
+    const searchResults = document.getElementById('searchResults');
 
     // Ocultar todas as seções inicialmente
     addPodcast.classList.add('hidden');
     searchPodcast.classList.add('hidden');
     listPodcast.classList.add('hidden');
+    searchResults.classList.add('hidden');
 
     // Mostrar a seção específica com base no parâmetro
     if (section === 'addPodcast') {
@@ -21,12 +23,6 @@ function toggleSection(section) {
 }
 
 // Função para salvar podcasts no Local Storage
-function savePodcasts() {
-    const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
-    localStorage.setItem('podcasts', JSON.stringify(podcasts));
-}
-
-// Adiciona novo podcast
 document.getElementById("formulario-podcast").addEventListener("submit", function(event) {
     event.preventDefault();
     
@@ -54,7 +50,66 @@ document.getElementById("formulario-podcast").addEventListener("submit", functio
     listPodcasts();
 });
 
-// Listagem de todos os podcasts
+// Funções de busca e listagem
+function toggleSearchOptions() {
+    document.getElementById('searchOptions').classList.toggle('hidden');
+}
+
+function displayFieldOptions(field) {
+    const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
+    const options = [...new Set(podcasts.map(podcast => podcast[field]))];
+    
+    const fieldOptions = document.getElementById('fieldOptions');
+    fieldOptions.innerHTML = '';
+    options.forEach(option => {
+        const button = document.createElement('button');
+        button.textContent = option;
+        button.onclick = () => searchByField(field, option);
+        fieldOptions.appendChild(button);
+    });
+    fieldOptions.classList.remove('hidden');
+}
+
+function searchByField(field, value) {
+    const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
+    const results = podcasts.filter(podcast => podcast[field] === value);
+
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = '';
+    results.forEach(podcast => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <strong>${podcast.titulo}</strong><br>
+            Público Focal: ${podcast.audiencia}<br>
+            Idioma: ${podcast.idioma}<br>
+            Local: ${podcast.location}<br>
+            <button onclick="window.open('${podcast.link}', '_blank')">Ir para Podcast</button>
+        `;
+        resultsContainer.appendChild(div);
+    });
+    document.getElementById('searchResults').classList.remove('hidden');
+}
+
+function listAll() {
+    const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
+    const resultsContainer = document.getElementById('resultsContainer');
+    resultsContainer.innerHTML = '';
+
+    podcasts.forEach(podcast => {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <strong>${podcast.titulo}</strong><br>
+            Público Focal: ${podcast.audiencia}<br>
+            Idioma: ${podcast.idioma}<br>
+            Local: ${podcast.location}<br>
+            <button onclick="window.open('${podcast.link}', '_blank')">Ir para Podcast</button>
+        `;
+        resultsContainer.appendChild(div);
+    });
+    document.getElementById('searchResults').classList.remove('hidden');
+}
+
+// Função para listar todos os podcasts
 function listPodcasts() {
     const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
     const listaPodcasts = document.getElementById('lista-podcasts');
@@ -71,42 +126,10 @@ function listPodcasts() {
             Idioma: ${podcast.idioma}<br>
             Local: ${podcast.location}<br>
             <button onclick="window.open('${podcast.link}', '_blank')">Ir para Podcast</button>
-            <button onclick="removePodcast(${index})">Remover</button>
         `;
         listaPodcasts.appendChild(li);
     });
 }
 
-// Alterna a visibilidade das opções de busca
-function toggleSearchOptions() {
-    const searchOptions = document.getElementById('searchOptions');
-    searchOptions.classList.toggle('hidden');
-}
-
-// Busca por campo específico
-function searchByField(field) {
-    const podcasts = JSON.parse(localStorage.getItem('podcasts')) || [];
-    const resultadoBusca = podcasts.filter(podcast => podcast[field]);
-    exibirResultadoBusca(resultadoBusca);
-}
-
-// Exibe resultado de busca
-function exibirResultadoBusca(resultadoBusca) {
-    const resultadoDiv = document.getElementById('resultado-busca');
-    resultadoDiv.innerHTML = '';
-    resultadoBusca.forEach(podcast => {
-        const p = document.createElement('p');
-        p.classList.add('podcast-item');
-        p.innerHTML = `
-            <strong>${podcast.titulo}</strong><br>
-            Público Focal: ${podcast.audiencia}<br>
-            <button onclick="window.open('${podcast.link}', '_blank')">Ir para Podcast</button>
-        `;
-        resultadoDiv.appendChild(p);
-    });
-}
-
 listPodcasts();
-
-
 

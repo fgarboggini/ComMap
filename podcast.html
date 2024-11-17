@@ -14,7 +14,6 @@
     </header>
     
     <div class="container">
-        <!-- Botões iniciais alinhados horizontalmente -->
         <div class="initial-buttons">
             <button onclick="window.location.href='index.html'" class="btn-back">Voltar para a Página Principal</button>
             <button onclick="toggleSection('addPodcast')" class="btn-main">Adicionar Novo Podcast</button>
@@ -26,7 +25,7 @@
         <section id="addPodcast" class="hidden">
             <h2>Adicionar Novo Podcast</h2>
             <form id="formulario-podcast">
-                <label for="titulo">Título do Episódio:</label>
+                <label for="titulo">Título do Episódio: <span class="required">*</span></label>
                 <input type="text" id="titulo" placeholder="Título do Episódio" required>
 
                 <label for="resumo">Resumo:</label>
@@ -41,8 +40,8 @@
                 <label for="otherLinks">Links Indicados no Podcast:</label>
                 <input type="text" id="otherLinks" placeholder="Links Indicados no Podcast">
 
-                <label for="audiencia">Público Focal:</label>
-                <input type="text" id="audiencia" placeholder="Público Focal">
+                <label for="audiencia">Público Focal: <span class="required">*</span></label>
+                <input type="text" id="audiencia" placeholder="Público Focal" required>
 
                 <label for="idioma">Idioma:</label>
                 <input type="text" id="idioma" placeholder="Idioma">
@@ -76,14 +75,15 @@
         <section id="searchPodcast" class="hidden">
             <h2>Buscar Podcast</h2>
             <div class="search-container">
-                <button class="search-btn" onclick="toggleSearchOptions()">🔍 Buscar</button>
+                <button onclick="toggleSearchOptions()" class="search-btn">🔍 Buscar</button>
                 <div id="searchOptions" class="hidden">
-                    <button onclick="searchByField('titulo')">Título do Episódio</button>
-                    <button onclick="searchByField('audiencia')">Público Focal</button>
-                    <button onclick="searchByField('idioma')">Idioma</button>
+                    <button onclick="displayFieldOptions('titulo')">Título do Episódio</button>
+                    <button onclick="displayFieldOptions('audiencia')">Público Focal</button>
+                    <button onclick="displayFieldOptions('idioma')">Idioma</button>
                     <button onclick="listAll()">Listar Tudo</button>
                 </div>
             </div>
+            <div id="fieldOptions" class="field-options hidden"></div>
         </section>
 
         <!-- Seção de Listagem de Podcasts (escondida inicialmente) -->
@@ -91,9 +91,23 @@
             <h2>Listagem de Podcasts</h2>
             <ul id="lista-podcasts"></ul>
         </section>
+        
+        <!-- Resultados de busca -->
+        <section id="searchResults" class="hidden">
+            <h2>Resultados da Busca</h2>
+            <div id="resultsContainer"></div>
+        </section>
     </div>
 
     <script src="podcast.js"></script>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
