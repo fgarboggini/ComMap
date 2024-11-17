@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Fábio Garboggini">
+    <title>Catálogo de Podcasts</title>
+    <link rel="stylesheet" href="podcast.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Catálogo de Podcasts</h1>
+
+        <h2>Adicionar Novo Podcast</h2>
+        <form id="formulario-podcast">
+            <input type="text" id="titulo" placeholder="Título do Episódio" required>
+            <textarea id="resumo" placeholder="Resumo"></textarea>
+            <input type="text" id="link" placeholder="Link">
+            <input type="text" id="duracao" placeholder="Duração">
+            <input type="text" id="audiencia" placeholder="Público Focal">
+            <input type="text" id="idioma" placeholder="Idioma">
+            <button type="submit">Cadastrar</button>
+        </form>
+        
+        <h2>Buscar Podcast</h2>
+        <form id="formulario-busca">
+            <input type="text" id="termo-busca" placeholder="Buscar por Título, Público Focal ou Idioma">
+            <button type="submit">Buscar</button>
+            <button type="button" id="limpar-busca">Limpar Busca</button> 
+        </form>
+        <div id="resultado-busca"></div> 
+
+        <h2>Listagem de Podcasts</h2>
+        <ul id="lista-podcasts"></ul>
+
+    </div>
+    
+    <script src="podcast.js"></script>
+</body>
+</html>
